@@ -51,6 +51,11 @@ class _AddCepPageState extends State<AddCepPage> {
                           cepInputController.text);
                       _address = await addressRepository.fetchAddress(zip);
 
+                      if (_address.getZipCode.isNotEmpty) {
+                        debugPrint('button called upsert');
+                        await addressRepository.upsert(_address);
+                      }
+
                       setState(() {
                         _fetching = false;
                       });
@@ -72,10 +77,10 @@ class _AddCepPageState extends State<AddCepPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('CEP: ${_address.zipCode}'),
-                  Text('Logradouro: ${_address.name}'),
-                  Text('Bairro: ${_address.district}'),
-                  Text('Cidade: ${_address.city}'),
+                  Text('CEP: ${_address.getZipCode}'),
+                  Text('Logradouro: ${_address.getName}'),
+                  Text('Bairro: ${_address.getDistrict}'),
+                  Text('Cidade: ${_address.getCity}'),
                 ],
               ),
             )

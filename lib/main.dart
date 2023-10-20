@@ -1,5 +1,6 @@
 import 'package:ceper/add_cep_page.dart';
 import 'package:ceper/model/address.dart';
+import 'package:ceper/repositories/address_repository.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -12,6 +13,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Address> _history = List.empty(growable: true);
+  final AddressRepository _addressRepository = AddressRepository();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  void _loadData() async {
+    _history = await _addressRepository.fetchRemote();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
               Expanded(
                   child: _history.isEmpty
-                      ? const Text('Histórico vazio')
+                      ? const Text(
+                          'Histórico vazio. Toque no + acima para inserir.')
                       : Scrollbar(
                           child: ListView.builder(
                               itemCount: _history.length,
@@ -51,17 +65,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Text('CEP: ${address.zipCode}'),
+                                        Text('CEP: ${address.getZipCode}'),
                                         Text(
-                                            'Logradouro: ${address.getName()}'),
+                                            'Logradouro: ${address.getDistrict}'),
                                       ]),
                                   Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        Text(
-                                            'Bairro: ${address.getDistrict()}'),
-                                        Text('Cidade: ${address.getCity()}'),
+                                        Text('Bairro: ${address.getDistrict}'),
+                                        Text('Cidade: ${address.getCity}'),
                                       ]),
                                   const Divider(
                                     thickness: 3.0,

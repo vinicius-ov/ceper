@@ -1,60 +1,53 @@
 class Address {
-  String? objectId;
-  String? createdAt;
-  String? updatedAt;
-  String zipCode;
-  String name;
-  String district;
-  String city;
+  String? _objectId;
+  String? _createdAt;
+  String? _updatedAt;
+  String _zipCode;
+  String _name;
+  String _district;
+  String _city;
 
-  String get getZipCode => this.zipCode;
+  Address(String zipCode, String name, String district, String city)
+      : _zipCode = zipCode,
+        _name = name,
+        _district = district,
+        _city = city;
 
-  set setZipCode(String zipCode) => this.zipCode = zipCode;
+  Address.empty()
+      : _zipCode = '',
+        _name = '',
+        _district = '',
+        _city = '';
 
-  get getName => this.name;
-
-  set setName(name) => this.name = name;
-
-  get getDistrict => this.district;
-
-  set setDistrict(district) => this.district = district;
-
-  get getCity => this.city;
-
-  set setCity(city) => this.city = city;
-
-  Address(
-      {required this.zipCode,
-      required this.name,
-      required this.district,
-      required this.city});
-
-  static Address empty() {
-    return Address(zipCode: '', name: '', district: '', city: '');
-  }
+  String get getZipCode => _zipCode;
+  String get getName => _name;
+  String get getDistrict => _district;
+  String get getCity => _city;
 
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['objectId'] = objectId;
-    data['createdAt'] = objectId;
-    data['updatedAt'] = objectId;
-    data['cep'] = objectId;
-    data['name'] = objectId;
-    data['district'] = objectId;
-    data['city'] = objectId;
+    data['objectId'] = _objectId;
+    data['createdAt'] = _createdAt;
+    data['updatedAt'] = _updatedAt;
+    data['zipCode'] = _zipCode;
+    data['name'] = _name;
+    data['district'] = _district;
+    data['city'] = _city;
     return data;
   }
 
-  static Address fromJson(Map<String, dynamic> result) {
+  static Address fromViaJson(Map<String, dynamic> result) {
+    return Address(result['cep'], result['logradouro'], result['bairro'],
+        result['localidade']);
+  }
+
+  static Address fromB4aJson(Map<String, dynamic> result) {
     return Address(
-        zipCode: result['cep'],
-        name: result['logradouro'],
-        district: result['bairro'],
-        city: result['localidade']);
+        result['zipCode'], result['name'], result['district'], result['city']);
   }
 
   @override
   String toString() {
-    return 'Address => zipCode = $zipCode | name=$name | district=$district | city=$city';
+    return 'Address => zipCode=$_zipCode | name=$_name | district=$_district | city=$_city';
   }
 }
