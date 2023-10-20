@@ -44,4 +44,17 @@ class Address {
     data['city'] = objectId;
     return data;
   }
+
+  static Address fromJson(Map<String, dynamic> result) {
+    return Address(
+        zipCode: result['cep'],
+        name: result['logradouro'],
+        district: result['bairro'],
+        city: result['localidade']);
+  }
+
+  @override
+  String toString() {
+    return 'Address => zipCode = $zipCode | name=$name | district=$district | city=$city';
+  }
 }

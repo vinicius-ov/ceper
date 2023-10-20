@@ -1,4 +1,6 @@
 import 'package:brasil_fields/brasil_fields.dart';
+import 'package:ceper/model/address.dart';
+import 'package:ceper/repositories/address_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -12,6 +14,9 @@ class AddCepPage extends StatefulWidget {
 
 class _AddCepPageState extends State<AddCepPage> {
   var cepInputController = TextEditingController(text: '');
+  final AddressRepository addressRepository = AddressRepository();
+  Address _address = Address.empty();
+  bool _fetching = false;
 
   @override
   Widget build(BuildContext context) {
@@ -34,31 +39,43 @@ class _AddCepPageState extends State<AddCepPage> {
                     hintStyle: TextStyle(color: Colors.grey)),
                 keyboardType: TextInputType.number,
                 controller: cepInputController),
-            TextButton(
-                onPressed: () {
-                  debugPrint('fgffdf');
-                },
-                style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10))),
-                    backgroundColor: MaterialStateProperty.all(Colors.red)),
-                child: const Text(
-                  "Buscar CEP",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400),
-                )),
+            _fetching
+                ? const CircularProgressIndicator()
+                : TextButton(
+                    onPressed: () async {
+                      setState(() {
+                        _fetching = true;
+                      });
+                      _address = Address.empty();
+                      String zip = UtilBrasilFields.removeCaracteres(
+                          cepInputController.text);
+                      _address = await addressRepository.fetchAddress(zip);
+
+                      setState(() {
+                        _fetching = false;
+                      });
+                    },
+                    style: ButtonStyle(
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                        backgroundColor: MaterialStateProperty.all(Colors.red)),
+                    child: const Text(
+                      "Buscar CEP",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400),
+                    )),
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(2), color: Colors.amber),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('CEP: '),
-                  Text('Logradouro: '),
-                  Text('Bairro: '),
-                  Text('Cidade: '),
+                  Text('CEP: ${_address.zipCode}'),
+                  Text('Logradouro: ${_address.name}'),
+                  Text('Bairro: ${_address.district}'),
+                  Text('Cidade: ${_address.city}'),
                 ],
               ),
             )
