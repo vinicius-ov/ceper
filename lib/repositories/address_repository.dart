@@ -50,7 +50,8 @@ class AddressRepository implements CrudInterface {
   @override
   Future<bool> update(Address address) async {
     try {
-      var result = await _dio.put('/Endereco/${address.getObjectId}');
+      var result = await _dio.put('/Endereco/${address.getObjectId}',
+          data: address.toMap());
       return (result.statusCode ?? 0) == 200;
     } on Exception catch (e) {
       return false;

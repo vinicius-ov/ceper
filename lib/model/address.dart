@@ -32,8 +32,6 @@ class Address {
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['objectId'] = _objectId;
-    data['createdAt'] = _createdAt;
-    data['updatedAt'] = _updatedAt;
     data['zipCode'] = _zipCode;
     data['name'] = _name;
     data['district'] = _district;
