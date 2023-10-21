@@ -4,7 +4,8 @@ import 'package:ceper/repositories/http_interceptor.dart';
 import 'package:dio/dio.dart';
 
 abstract class CrudInterface {
-  Future<bool> upsert(Address address);
+  Future<bool> insert(Address address);
+  Future<bool> update(Address address);
   Future<bool> delete(Address address);
   Future<List<Address>> fetchRemote();
 }
@@ -25,8 +26,9 @@ class AddressRepository implements CrudInterface {
 
   @override
   Future<bool> delete(Address address) async {
-    // TODO: implement delete
-    var result = await _dio.delete('/Endereco');
+    print('will try to remove ${address.toMap()}');
+
+    var result = await _dio.delete('/Endereco/${address.getObjectId}');
     return (result.statusCode ?? 0) >= 200 && (result.statusCode ?? 0) <= 300;
   }
 
@@ -39,7 +41,7 @@ class AddressRepository implements CrudInterface {
   }
 
   @override
-  Future<bool> upsert(Address address) async {
+  Future<bool> insert(Address address) async {
     try {
       print('will try to insert ${address.toMap()}');
       var result = await _dio.post('/Endereco', data: address.toMap());
@@ -54,5 +56,17 @@ class AddressRepository implements CrudInterface {
     var result = await _dio.get('https://viacep.com.br/ws/$zipCode/json/');
     Address address = Address.fromViaJson(result.data);
     return address;
+  }
+
+  @override
+  Future<bool> update(Address address) async {
+    try {
+      print('will try to insert ${address.toMap()}');
+      var result = await _dio.put('/Endereco/${address.getObjectId}');
+      return (result.statusCode ?? 0) == 204;
+    } on Exception catch (e) {
+      print('exception $e');
+      return false;
+    }
   }
 }

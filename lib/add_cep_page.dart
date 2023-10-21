@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AddCepPage extends StatefulWidget {
-  const AddCepPage({super.key, required this.title});
+  const AddCepPage(
+      {super.key, required this.title, required this.addressRepository});
   final String title;
+  final AddressRepository addressRepository;
 
   @override
   State<AddCepPage> createState() => _AddCepPageState();
@@ -14,9 +16,15 @@ class AddCepPage extends StatefulWidget {
 
 class _AddCepPageState extends State<AddCepPage> {
   var cepInputController = TextEditingController(text: '');
-  final AddressRepository addressRepository = AddressRepository();
   Address _address = Address.empty();
   bool _fetching = false;
+  late AddressRepository _addressRepository;
+
+  @override
+  void initState() {
+    super.initState();
+    _addressRepository = widget.addressRepository;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,22 +51,24 @@ class _AddCepPageState extends State<AddCepPage> {
                 ? const CircularProgressIndicator()
                 : TextButton(
                     onPressed: () async {
-                      setState(() {
-                        _fetching = true;
-                      });
-                      _address = Address.empty();
-                      String zip = UtilBrasilFields.removeCaracteres(
-                          cepInputController.text);
-                      _address = await addressRepository.fetchAddress(zip);
+                      if (cepInputController.text.length == 8) {
+                        setState(() {
+                          _fetching = true;
+                        });
+                        _address = Address.empty();
+                        String zip = UtilBrasilFields.removeCaracteres(
+                            cepInputController.text);
+                        _address = await _addressRepository.fetchAddress(zip);
 
-                      if (_address.getZipCode.isNotEmpty) {
-                        debugPrint('button called upsert');
-                        await addressRepository.upsert(_address);
+                        if (_address.getZipCode.isNotEmpty) {
+                          debugPrint('button called upsert');
+                          await _addressRepository.insert(_address);
+                        }
+
+                        setState(() {
+                          _fetching = false;
+                        });
                       }
-
-                      setState(() {
-                        _fetching = false;
-                      });
                     },
                     style: ButtonStyle(
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(

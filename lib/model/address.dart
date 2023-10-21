@@ -23,6 +23,7 @@ class Address {
   String get getName => _name;
   String get getDistrict => _district;
   String get getCity => _city;
+  String get getObjectId => _objectId ?? '';
 
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -42,8 +43,12 @@ class Address {
   }
 
   static Address fromB4aJson(Map<String, dynamic> result) {
-    return Address(
+    Address address = Address(
         result['zipCode'], result['name'], result['district'], result['city']);
+    address._createdAt = result['createdAt'];
+    address._objectId = result['objectId'];
+    address._updatedAt = result['updatedAt'];
+    return address;
   }
 
   @override

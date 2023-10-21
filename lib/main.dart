@@ -1,4 +1,5 @@
 import 'package:ceper/add_cep_page.dart';
+import 'package:ceper/edit_address_page.dart';
 import 'package:ceper/model/address.dart';
 import 'package:ceper/repositories/address_repository.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +35,20 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
           actions: [
             GestureDetector(
+                onTap: () async {
+                  _loadData();
+                },
+                child: Container(
+                    margin: const EdgeInsets.only(right: 20),
+                    child: const Icon(Icons.refresh))),
+            GestureDetector(
                 onTap: () {
-                  debugPrint('tey raob');
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              const AddCepPage(title: 'Buscar CEP')));
+                          builder: (context) => AddCepPage(
+                              title: 'Buscar CEP',
+                              addressRepository: _addressRepository)));
                 },
                 child: Container(
                     margin: const EdgeInsets.only(right: 20),
@@ -57,10 +65,22 @@ class _MyHomePageState extends State<MyHomePage> {
                           'Histórico vazio. Toque no + acima para inserir.')
                       : Scrollbar(
                           child: ListView.builder(
-                              itemCount: _history.length,
-                              itemBuilder: (BuildContext bc, int index) {
-                                var address = _history[index];
-                                return Column(children: [
+                          itemCount: _history.length,
+                          itemBuilder: (BuildContext bc, int index) {
+                            Address address = _history[index];
+                            return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => EditAddressPage(
+                                                title: 'Editar endereço',
+                                                address: address,
+                                                addressRepository:
+                                                    _addressRepository,
+                                              )));
+                                },
+                                child: Column(children: [
                                   Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -79,8 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   const Divider(
                                     thickness: 3.0,
                                   )
-                                ]);
-                              })))
+                                ]));
+                          },
+                        )))
             ])));
   }
 }
