@@ -23,6 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _loadData() async {
+    debugPrint('fetching addresses...');
     _history = await _addressRepository.fetchRemote();
     setState(() {});
   }

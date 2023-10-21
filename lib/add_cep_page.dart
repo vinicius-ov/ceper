@@ -51,7 +51,8 @@ class _AddCepPageState extends State<AddCepPage> {
                 ? const CircularProgressIndicator()
                 : TextButton(
                     onPressed: () async {
-                      if (cepInputController.text.length == 8) {
+                      debugPrint(cepInputController.text);
+                      if (cepInputController.text.length == 10) {
                         setState(() {
                           _fetching = true;
                         });

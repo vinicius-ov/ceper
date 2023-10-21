@@ -44,11 +44,14 @@ class _EditAddressPageState extends State<EditAddressPage> {
           actions: [
             GestureDetector(
                 onTap: () async {
-                  debugPrint('will save...');
+                  debugPrint('will edit...');
+                  _address.setName(nameInputController.text);
+                  _address.setDistrict(districtInputController.text);
+                  _address.setCity(cityInputController.text);
                   bool success = await _addressRepository.update(_address);
                   if (success) {
-                    debugPrint('save succesful...');
-                    //Navigator.pop(context);
+                    debugPrint('edit succesful...');
+                    setState(() {});
                   }
                 },
                 child: Container(
@@ -77,7 +80,11 @@ class _EditAddressPageState extends State<EditAddressPage> {
               onPressed: () async {
                 bool success = await _addressRepository.delete(_address);
                 if (success) {
-                  //Navigator.pop(context);
+                  nameInputController.text = '';
+                  districtInputController.text = '';
+                  cityInputController.text = '';
+                  _address = Address.empty();
+                  setState(() {});
                 }
               },
               child: const Text('Deletar'))

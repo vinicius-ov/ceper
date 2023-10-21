@@ -25,6 +25,10 @@ class Address {
   String get getCity => _city;
   String get getObjectId => _objectId ?? '';
 
+  void setName(String name) => _name = name;
+  void setDistrict(String district) => _district = district;
+  void setCity(String city) => _city = city;
+
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['objectId'] = _objectId;
