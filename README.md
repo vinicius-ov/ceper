@@ -29,7 +29,7 @@ samples, guidance on mobile development, and a full API reference.
 <p><a href="https://tstviseu.onelink.me/jQF0/IVAUCHER" target="_blank">IVAUCHER</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/DMSETTINGS" target="_blank">DMSETTINGS</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/PROMO" target="_blank">PROMO</a></p>
-<p><a href="https://tstviseu.onelink.me/jQF0/HLLNGPROMO" target="_blank">HLLNGPROMO</a></p>
+<p><a href="https://tstviseu.onelink.me/jQF0/CHLLNGPROMO" target="_blank">CHLLNGPROMO</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/ADDCARD" target="_blank">ADDCARD</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/ACTDT" target="_blank">ACTDT</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/PULSE" target="_blank">PULSE</a></p>
