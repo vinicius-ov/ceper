@@ -34,6 +34,7 @@ samples, guidance on mobile development, and a full API reference.
 <p><a href="https://tstviseu.onelink.me/jQF0/ACTDT" target="_blank">ACTDT</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/PULSE" target="_blank">PULSE</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/ECO" target="_blank">ECO</a></p>
+<p><a href="https://tstviseu.onelink.me/jQF0/CHLLNG" target="_blank">CHLLNG</a></p>
 
 <p>PROD</p>
 <p><a href="https://mbway.page.link/ECO" target="_blank">ECO</a></p>
