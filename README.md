@@ -31,6 +31,7 @@ samples, guidance on mobile development, and a full API reference.
 <p><a href="https://tstviseu.onelink.me/jQF0/PROMO" target="_blank">PROMO</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/CHLLNGPROMO" target="_blank">CHLLNGPROMO</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/ADDCARD" target="_blank">ADDCARD</a></p>
+<p><a href="https://tstviseu.onelink.me/jQF0/ACTDT?c=111&u=redirect-demo-app://redirect-back.com.sibs.RedirectDemoApp&qr=1234567" target="_blank">ACTDT full</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/ACTDT" target="_blank">ACTDT</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/PULSE" target="_blank">PULSE</a></p>
 <p><a href="https://tstviseu.onelink.me/jQF0/ECO" target="_blank">ECO</a></p>
