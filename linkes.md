@@ -23,7 +23,8 @@ TSTVS
 
 
 <p>TST</p>
-<p><a href="https://tstlx.onelink.me/wYBT/ECO" target="_blank">ECO</a></p>
+<p><a href="https://tstlx.onelink.me/wYBT/ECO" target="_blank">ECO (https://tstlx.onelink.me/wYBT/ECO)</a></p>
+<p><a href="https://tstlx.onelink.me/wYBT/ADDCARD" target="_blank">ADDCARD (https://tstlx.onelink.me/wYBT/ADDCARD)</a></p>
 
 <p>PROD</p>
 <p><a href="https://mbway.page.link/ECO" target="_blank">ECO</a></p>
